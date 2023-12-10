@@ -7,9 +7,6 @@ include "include/Product.php";?>
     <meta charset="UTF-8">
     <title>Fajny sklep</title>
     <link rel="stylesheet" type="text/css" href="css/button_style.css">
-    <?php
-    include 'include/nav.php';
-    ?>
 </head>
 <body>
 <div class="container-fluid">

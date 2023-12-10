@@ -1,6 +1,6 @@
 <!--https://github.com/codingWithElias/Login-registration-System-PHP-and-MYSQL/blob/master/db_conn.php-->
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
     <title>SIGN UP</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">

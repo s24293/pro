@@ -36,10 +36,11 @@
 
     <input type="submit" onclick="checkdata()" value="Sprawdz dostępność">
 </form>
+
 <p id="result"></p>
 
 <button id="sendButton" style="display: none;" onclick="saveToDatabase()">Wyślij</button>
-
+<p id="nologin"></p>
 <script>
     function checkdata() {
         var form = document.getElementById('myForm');
@@ -52,10 +53,11 @@
             .then(response => response.json()) // Odbierz dane w formie JSON
             .then(data => {
                 document.getElementById('result').innerHTML = 'Cena: ' + data.price + ' PLN';
-                document.getElementById('sendButton').style.display = 'block';
-
-                // Dodaj cenę do danych formularza
                 formData.append('price', data.price);
+                <?php if (isset($_SESSION['login'])) {?>
+                document.getElementById('sendButton').style.display = 'block';
+                <?php }else?>
+                document.getElementById('nologin').innerHTML="Aby zarezerwawać wymagane jest zalogowanie";
             })
             .catch(error => console.error('Błąd:', error));
     }

@@ -3,11 +3,12 @@ if (!isset($_POST['email']) && !isset($_POST['password'])) {
     header("Location: login.php");
     exit();
 }
+require_once("include/sesconf.php");
 session_start();
-include "include/sql.php";
+require_once("include/sql.php");
 $db = connect();
-$email = validate($_POST['email'],$db);
-$pass = validate($_POST['password'],$db);
+$email = validate($_POST['email'], $db);
+$pass = validate($_POST['password'], $db);
 
 if (empty($email)) {
     header("Location: index.php?error=Email is required");

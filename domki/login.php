@@ -1,4 +1,5 @@
 <?php
+require_once("include/sesconf.php");
 session_start();
 ?>
 <!DOCTYPE html>

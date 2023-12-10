@@ -1,6 +1,7 @@
 <?php
+require_once("include/sesconf.php");
 session_start();
-include "include/sql.php";
+require_once("include/sql.php");
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: signup.php");

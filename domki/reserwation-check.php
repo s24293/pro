@@ -3,8 +3,10 @@ if (!isset($_POST['sub'])) {
     header("Location: reservation-check.php");
     exit();
 }
+require_once("include/sesconf.php");
 session_start();
-include "include/sql.php";
+require_once("include/sql.php");
+
 $db = connect();
 $id = (int)$_POST['id'];
 $email = validate($_POST['email'], $db);
@@ -46,6 +48,7 @@ if (empty($email) || empty($phone) || empty($name) || empty($lastname) || empty(
     header("Location: index.php?error=Wypełnij wszystkie wymagane");
     exit();
 }
+echo 123;
 /*to do:
 oblicz cene
 
