@@ -9,4 +9,11 @@ function connect(){
     }
     return $db;
 }
+function validate($data,$db): string
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return mysqli_real_escape_string($db, $data);
+}
 ?>

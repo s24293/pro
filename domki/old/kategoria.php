@@ -39,7 +39,7 @@ if(isset($_GET['sort'])) {
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="css/button_style.css">
+    <link rel="stylesheet" type="text/css" href="../css/button_style.css">
     <?php
     include "include/nav.php";
     ?>

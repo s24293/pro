@@ -1,18 +1,6 @@
 <?php
 session_start();
-include "include/Product.php";
-if(isset($_GET['action'])=="add"){
-    $id=$_GET['id'];
-    if(isset($_SESSION["koszyk"][$id])) {
-        $qty= $_SESSION["koszyk"][$id]["qty"];
-        $_SESSION["koszyk"][$id] = array("id" => $id, "qty" => $qty+1,"cena"=>1);
-    } else{
-        $_SESSION["koszyk"][$id] = array("id" => $id, "qty" => 1,"cena"=>1);
-    }
-    header("Location: index.php");
-    exit();
-}
-?>
+include "include/Product.php";?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -46,7 +34,7 @@ if(isset($_GET['action'])=="add"){
                             <p class='img_wrapper'>
                                 <img src= '<?php echo $results->getImg()?>' class='card-img-top' alt='<?php echo $results->getid()?>'/><span>
                              <button name="subp" value="<?php echo $results->getId()?>" class='btn btn-warning btn-lg bi bi-cart-plus'>Dodaj</button><br>
-                             <br><a href='show.php?id=<?php echo $results->getid() ?>' class='btn btn-lg btn-info'>Szczegły</a></span>
+                             <br><a href='old/show.php?id=<?php echo $results->getid() ?>' class='btn btn-lg btn-info'>Szczegły</a></span>
                                 <input type="hidden" value="<?php echo $results->getStan() ?>"  name="qty">
                             </p>
                         </div>

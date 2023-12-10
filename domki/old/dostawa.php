@@ -185,7 +185,7 @@ if(isset($_SESSION["koszyk"])&&isset($_SESSION['fullprice'])&&isset($page)){
         }
         echo "<p class='text-center'>";
         foreach ($product as $product2) {
-            echo $product2->getName()." ".$_SESSION["koszyk"][$product2->getId()]["qty"]." * ".$product2->getCena()." = ".$_SESSION["koszyk"][$product2->getId()]["qty"] * $product2->getCena()."<br>";
+            echo $product2->getName() . " dostawa.php" .$_SESSION["koszyk"][$product2->getId()]["qty"]." * ".$product2->getCena()." = ".$_SESSION["koszyk"][$product2->getId()]["qty"] * $product2->getCena()."<br>";
         }
         echo "Dostawa: ".$_SESSION['dostawa']['cena']."<br>";
         echo "Cena z dostawą: ".$_SESSION['fullprice']."zł<br>";

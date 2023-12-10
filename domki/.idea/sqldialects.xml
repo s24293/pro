@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/Koszyk.php" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/admin.php" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/dostawa.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/include/Product.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/index.php" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/kategoria.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/login.php" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/show.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/old/Koszyk.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/old/admin.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/old/dostawa.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/old/kategoria.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/old/show.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/reserwation-check.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/singup-check.php" dialect="GenericSQL" />
+    <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>

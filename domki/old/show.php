@@ -20,7 +20,7 @@ if(isset($_GET['action'])=="add"){
 <head>
     <meta charset="UTF-8">
     <title>Fajny sklep</title>
-    <link rel="stylesheet" type="text/css" href="css/button_style.css">
+    <link rel="stylesheet" type="text/css" href="../css/button_style.css">
     <?php include "include/nav.php"; ?>
 </head>
 <body>
