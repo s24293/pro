@@ -1,44 +1,34 @@
 <?php
-require_once("include/sesconf.php");
+require_once "include/sesconf.php";
 session_start();
-require_once("include/sql.php");
+require_once "include/sql.php";
+require_once "include/functions.php";
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: signup.php");
-    exit();
-}
+if ($_SERVER['REQUEST_METHOD'] !== 'POST')
+    redirectWithError("", "signup.php");
+
 $conn = connect();
-$firstname = validate($_POST['firstname'],$conn);
-$lastname = validate($_POST['lastname'],$conn);
-$pass = validate($_POST['password'],$conn);
-$re_pass = validate($_POST['re_password'],$conn);
-$email = validate($_POST['email'],$conn);
-$phone = validate($_POST['phone'],$conn);
+$firstname = validate($_POST['firstname']);
+$lastname = validate($_POST['lastname']);
+$pass = validate($_POST['password']);
+$re_pass = validate($_POST['re_password']);
+$email = validate($_POST['email']);
+$phone = validate($_POST['phone']);
 
-if (empty($firstname) || empty($lastname) || empty($email)) {
-    header("Location: signup.php?error= Uzupełnij wszystkie dane");
-    exit();
-}
-if (empty($pass) || empty($re_pass)) {
-    header("Location: signup.php?error=Uzupełnij hasło");
-    exit();
-}
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header("Location: signup.php?error=Email jest niepoprawny");
-    exit();
-}
-if ($pass !== $re_pass) {
-    header("Location: signup.php?error=Hasła muszą być takie same");
-    exit();
-}
+if (empty($firstname) || empty($lastname) || empty($email))
+    redirectWithError("Uzupełnij wszystkie dane", "signup.php");
+if (empty($pass) || empty($re_pass))
+    redirectWithError("Uzupełnij hasło", "signup.php");
+if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+    redirectWithError("Email jest niepoprawny", "signup.php");
+if ($pass !== $re_pass)
+    redirectWithError("Hasła muszą być takie same", "signup.php");
+
 $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
 $stmt->bindParam(1, $email_from_form);
 $stmt->execute();
-
-if ($stmt->fetch(PDO::FETCH_ASSOC)) {
-    header("Location: signup.php?error=E-mail istnieje w bazie danych.");
-    exit();
-}
+if ($stmt->fetch(PDO::FETCH_ASSOC))
+    redirectWithError("E-mail jest zajęty", "signup.php");
 
 function bindExecuteArray($stmt, $params): void
 {
@@ -68,9 +58,6 @@ try {
     exit();
 } catch (PDOException $e) {
     $conn->rollBack();
-    header("Location: signup.php?error=Błąd podczas rejestracji" . $e->getMessage());
-    exit();
-} finally {
-    $conn = null;
+    redirectWithError("Błąd podczas rejestracji" . $e->getMessage(), "signup.php");
 }
 

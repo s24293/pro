@@ -29,16 +29,14 @@
 
     <label>Password</label>
     <input type="password"
-           name="password"
-           placeholder="Password"><br>
+           name="password"><br>
 
     <label>Re Password</label>
     <input type="password"
-           name="re_password"
-           placeholder="Re_Password"><br>
+           name="re_password"><br>
 
     <button type="submit">Sign Up</button>
-    <a href="index.php" class="ca">Already have an account?</a>
+    <a href="login.php" class="ca">Already have an account?</a>
 </form>
 </body>
 </html>

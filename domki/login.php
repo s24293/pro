@@ -1,5 +1,5 @@
 <?php
-require_once("include/sesconf.php");
+require_once "include/sesconf.php";
 session_start();
 ?>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ session_start();
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<?php if (!isset($_SESSION['admin']['login'])) { ?>
+<?php if (!isset($_SESSION['id'])) { ?>
     <form action="login-check.php" method="post">
         <h2>LOGIN</h2>
         <?php if (isset($_GET['error'])) { ?>

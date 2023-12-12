@@ -1,3 +1,8 @@
+<?php
+require_once "include/sesconf.php";
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,18 +15,6 @@
 <h1>Rezerwacja Domków Letniskowych</h1>
 
 <form id="myForm" method="post">
-    <label for="imie">Imię:</label>
-    <input type="text" id="imie" name="name" required><br>
-
-    <label for="nazwisko">Nazwisko:</label>
-    <input type="text" id="nazwisko" name="lastname" required><br>
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
-
-    <label for="telefon">Telefon:</label>
-    <input type="tel" id="telefon" name="phone" required><br>
-
     <label for="data_przyjazdu">Data przyjazdu:</label>
     <input type="date" id="data_przyjazdu" name="Start_data" required><br>
 
@@ -34,13 +27,25 @@
     <label for="uwagi">Dodatkowe uwagi:</label>
     <textarea id="uwagi" name="uwagi" rows="4" cols="50"></textarea><br>
 
-    <input type="submit" onclick="checkdata()" value="Sprawdz dostępność">
+    <input type="submit" name="sub" onclick="checkdata()" value="Sprawdz dostępność">
 </form>
 
 <p id="result"></p>
 
 <button id="sendButton" style="display: none;" onclick="saveToDatabase()">Wyślij</button>
-<p id="nologin"></p>
+
+<?php
+if($_SESSION['udata'] && isset($_POST['sub']) !== null){
+    $dane=$_SESSION['udata'];
+    echo "<p>".$dane['name']."</p>";
+    echo "<p>".$dane['surname']."</p>";
+    echo "<p>".$dane['phone_number']."</p>";
+    echo "<p>".$dane['email']."</p>";
+}
+else{
+    echo "<p id='nologin'></p>";
+}
+?>
 <script>
     function checkdata() {
         var form = document.getElementById('myForm');
@@ -54,10 +59,7 @@
             .then(data => {
                 document.getElementById('result').innerHTML = 'Cena: ' + data.price + ' PLN';
                 formData.append('price', data.price);
-                <?php if (isset($_SESSION['login'])) {?>
                 document.getElementById('sendButton').style.display = 'block';
-                <?php }else?>
-                document.getElementById('nologin').innerHTML="Aby zarezerwawać wymagane jest zalogowanie";
             })
             .catch(error => console.error('Błąd:', error));
     }
