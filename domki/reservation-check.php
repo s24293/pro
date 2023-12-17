@@ -1,22 +1,25 @@
 <?php
-
 require_once "include/sesconf.php";
 session_start();
 require_once "include/functions.php";
 require_once "include/sql.php";
-if (!isset($_POST['sub']))
-    redirectWithError("", "reserwation.php");
-
+header('Content-Type: application/json');
+if ($_SERVER['REQUEST_METHOD'] !== 'POST')
+    returnError("error");
 //werifikacja i ustawienie danych
 $db = connect();
-$id = (int)$_POST['id'];
-$start_data = validate($_POST['Start_data']);
-$end_data = validate($_POST['End_data']);
+$id = (int)$_POST['CottageId'];
+$start_data = $_POST['Start_data'];
+$end_data = $_POST['End_data'];
 $people = validate($_POST['people']);
 $uwagi = validate($_POST['uwagi']);
+if (!isset($_SESSION['id']))
+    returnError("Zaloguj się");
+if($id==null||$id<1||$id>5)
+    returnError("Nie ma tagiego domku");
 
 if (empty($start_data) || empty($end_data) || empty($people))
-    redirectWithError("Wypełnij wszystkie wymagane", "reserwation.php");
+    returnError("Wypełnij wszystkie wymagane");
 
 //doby
 try {
@@ -24,8 +27,8 @@ try {
     $datetime2 = new DateTime($end_data);
     $roznica = $datetime1->diff($datetime2);
     $doby = $roznica->days;
-    if ($doby < 1) redirectWithError("Za krótki okres min 1 doba","reserwation.php");
-    else if ($doby > 14) redirectWithError("Za długi okres max 2 tyg","reserwation.php");
+    if ($doby < 1) returnError("Za krótki okres min 1 doba");
+    else if ($doby > 14) returnError("Za długi okres max 2 tyg");
 
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
@@ -46,7 +49,7 @@ try {
     $stmt->bindParam(':data_end', $end_data);
     $stmt->execute();
     if ($stmt->rowCount() > 0)
-        redirectWithError("Domek jest zajęty w danym terminie","reserwation.php");
+        returnError("Domek jest zajęty w danym terminie");
 
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -64,9 +67,9 @@ $max_people = $row['number_of_persons'];
 
 //ludzie
 if ($people < 1)
-    redirectWithError("Minimum 1 osoba","reserwation.php");
+    returnError("Minimum 1 osoba");
 else if ($max_people > $people)
-    redirectWithError("Max $max_people osób","reserwation.php");
+    returnError("Max $max_people osób");
 
 //cena
 $price = $price_per_day * $doby;
@@ -80,8 +83,8 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row['regular_customer'] == 1) {
     $price -= $price * 0.1;
 }
-echo $price;
+$response = array('price' => $price);
+echo json_encode($response);
 /*to do:
 promocje
 */
-

@@ -2,7 +2,7 @@
 require_once "include/sesconf.php";
 session_start();
 require_once "include/functions.php";
-require_once "include/sql.php" ;
+require_once "include/sql.php";
 
 if (!isset($_POST['email']) && !isset($_POST['password']))
     redirectWithError("", "login.php");

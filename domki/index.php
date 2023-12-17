@@ -1,63 +1,16 @@
-<?php
-session_start();
-include "include/Product.php";?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>Fajny sklep</title>
-    <link rel="stylesheet" type="text/css" href="css/button_style.css">
+    <link rel="stylesheet" type="text/css" href="old/button_style.css">
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <?php
+<a href="reservation.php?cottage=1">Domek nr1</a><br>
+<a href="reservation.php?cottage=1">Domek nr2</a><br>
+<a href="reservation.php?cottage=1">Domek nr3</a><br>
+<a href="reservation.php?cottage=1">Domek nr4</a><br>
 
-        $db=connect();
-        $result =  $db->query( "SELECT * FROM produkty;");
-        if ($result) {
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                $product[] = new Product($row['id'], $row['nazwa'], $row['cena'], $row['opis1'], $row['img'], $row['ilosc']);
-            }
-        }
 
-        foreach ($product as $results){
-            ?>
-            <div class='col-2'>
-                <div class='card'>
-                    <form method="post">
-
-                        <div id='image_div'>
-                            <p class='img_wrapper'>
-                                <img src= '<?php echo $results->getImg()?>' class='card-img-top' alt='<?php echo $results->getid()?>'/><span>
-                             <button name="subp" value="<?php echo $results->getId()?>" class='btn btn-warning btn-lg bi bi-cart-plus'>Dodaj</button><br>
-                             <br><a href='old/show.php?id=<?php echo $results->getid() ?>' class='btn btn-lg btn-info'>Szczegły</a></span>
-                                <input type="hidden" value="<?php echo $results->getStan() ?>"  name="qty">
-                            </p>
-                        </div>
-                    </form>
-                    <div class='card-body'>
-                        <h5 class='card-title'> <?php echo $results->getname()?></h5>
-                        <p class='card-text'><?php echo $results->getopis() ?></p>
-                        <?php
-                        echo "<h4>".$results->getCena()."zł</h4>";
-                        echo $results->getCena() + (9.99) . " zł z dostawą<br>";
-                        echo "Stan: " . $results->getstan() . " sztuk";
-                        ?>
-                    </div>
-                </div>
-            </div>
-            <?php
-            if(isset($_POST['subp'])){
-           $id= $_POST['subp'];
-             $qty=$_POST['qty'];
-            if($qty>0){
-                 header("Location: index.php?action=add&id=$id");
-                 exit();
-            }
-            }
-        } ?>
-    </div>
-</div>
 </body>
 </html>

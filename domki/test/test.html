@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="error"></p>
+<form id="myForm" method="post">
+
+    <label for="liczba_osob">Liczba osób:</label>
+    <input type="number" id="liczba_osob" name="people" required><br>
+
+    <label for="uwagi">Dodatkowe uwagi:</label>
+    <textarea id="uwagi" name="uwagi" rows="4" cols="50" maxlength="255"></textarea><br>
+
+    <button type="button" name="sub" onclick="checkData()">Sprawdz dostępność</button>
+    <p id="result"></p>
+    <button id="sendButton" type="button" style="display: none">wyślij</button>
+</form>
+<script>
+    function checkData() {
+        console.log("sprawdzam");
+        let form = document.getElementById('myForm');
+        let formData = new FormData(form);
+        fetch('check.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse response as JSON
+            })
+            .then(data => {
+                if (data.error) throw new Error(data.error);
+                document.getElementById('result').innerHTML = 'Cena: ' + data.price + ' zł';
+                formData.append('price', data.price);
+                console.log(data);
+                document.getElementById('sendButton').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Błąd:', error)
+                document.getElementById('error').innerHTML = error;
+            });
+    }
+</script>
+</body>
+</html>

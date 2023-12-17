@@ -16,3 +16,10 @@ function validate($data): string
     header("Location: " . $url);
     exit();
 }
+
+#[NoReturn] function returnError($error): void
+{
+    $errorResponse = array('error' => $error);
+    echo json_encode($errorResponse);
+    exit();
+}
