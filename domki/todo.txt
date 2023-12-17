@@ -1,0 +1,7 @@
+admin panel - zarządza wszystkiomi rezerwacjami
+user panel - ma wgląd do swoich rezerwacji i ich statusu
+strona główna
+zapis rezerwacji do bazy danych
+wypełnienie bazy danych - wymyślić domki,promocje
+system promoci?
+system ocen?
